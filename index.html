@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+     <script>
+         class Student {
+             constructor (name, address, phone, course) {
+                 this.name = name;
+                 this.address = address;
+                 this.phone = phone;
+                 this.course = course;
+             }
+
+           
+             getInfo() {
+                 return "Name:" + this.name + "\n" +
+                 "Address:" + this.address +"\n" +
+                 "Phone:" + this.phone+"\n" +
+                 "Course:" + this.course +"\n"
+             }
+         }
+
+
+
+         async function getData() {
+    try {
+        let response = await fetch('https://github.com/MilicaMizy/Citanje-podataka-o-studentima.git');
+        if (response.status !== 200) {
+            throw new Error("Error while reading file.");
+        }
+        let text = await response.text();
+        let informacije = text.split("\r\n");
+        splitLine(informacije);
+
+    } catch (err) {
+        txt.innerHTML = 'Fetch problem: ' + err.message;
+    } finally {
+
+    }
+}
+
+function splitLine(info) {
+    while (info.length > 0) {
+        let x = info.splice(0, 4);
+        let students = new Student(x[0], x[1], x[2], x[3]);
+        txt.innerHTML += students.getInfo();
+    }
+}
+
+button.addEventListener("click", function () {
+    getData();
+    document.getElementById("txt").innerHTML = "";
+});
+
+         var student1 = new Student ("Matthew Perry", "High Park 36", "(507) 833-3567", "Geography");
+         var student2 = new Student ("Matt LeBlanc", "High Park 35", "(507) 833-3566", "Biology");
+         var student3 = new Student ("David Schwimmer", "High Park 34", "(507) 833-3565", "Paleontologist");
+
+           console.log(student1.getInfo())
+           console.log(student2.getInfo())
+           console.log(student3.getInfo())
+         
+ 
+
+
+
+
+
+
+
+
+     </script>
+  
+</body>
+</html>
